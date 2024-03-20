@@ -107,5 +107,18 @@ public class Ordenamiento {
         System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
         sortedNums = insertionSort(unsortedNums);
     }
+    public void bubbleSort(int []nums){
+        int k,j,temp;
+        int tamanio = nums.length;
+        for ( k = (tamanio - 1); k >= 0; k--) {
+            for ( j = 1; j <= k; j++) {
+                if (nums[j-1] > nums[j]) {
+                    temp = nums[j-1];
+                    nums[j-1] = nums[j];
+                    nums[j] = temp;
+                }
+            }
+        }
+    }
 
 }
