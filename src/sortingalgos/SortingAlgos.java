@@ -1,11 +1,13 @@
 package sortingalgos;
 
 /**
+ * https://github.com/adamulp/sortingAlgos/
  *
  * @authors:
- * Alexis Allendez      
- * Enzo Casalegno       
- * Nicolás Hollmann     
+ *           Alexis Allendez        https://github.com/AlexisAllendez
+ *           Enzo Casalegno         https://github.com/EnzoCasalegno
+ *           Nicolás Hollmann       https://github.com/HollmannCod3
+ *           Adam Rigg              https://github.com/adamulp/
  */
 
 /*
