@@ -39,7 +39,9 @@ public class SortingAlgos {
 //        testCarga.muestra(20);
         testCarga.insertionSort();
         testCarga.muestra(20);
+        System.out.println("El siguiente sout imprime la hora en pantalla");
         System.out.println("Hora actual: " + dateFormat.format(date));
+        
         
     }
     
