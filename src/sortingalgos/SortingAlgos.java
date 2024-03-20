@@ -1,5 +1,9 @@
 package sortingalgos;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * https://github.com/adamulp/sortingAlgos/
  *
@@ -28,12 +32,15 @@ ordenar.
 public class SortingAlgos {
 
     public static void main(String[] args) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
         Ordenamiento testCarga = new Ordenamiento();
         testCarga.cargar();
 //        testCarga.muestra(20);
         testCarga.insertionSort();
         testCarga.muestra(20);
-
+        System.out.println("Hora actual: " + dateFormat.format(date));
+        
     }
     
 }
