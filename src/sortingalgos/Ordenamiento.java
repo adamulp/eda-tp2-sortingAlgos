@@ -107,6 +107,8 @@ public class Ordenamiento {
         System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
         sortedNums = insertionSort(unsortedNums);
     }
+    
+    
     public void bubbleSort(int []nums){
         int k,j,temp;
         int tamanio = nums.length;
