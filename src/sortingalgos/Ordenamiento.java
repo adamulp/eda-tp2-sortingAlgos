@@ -448,6 +448,9 @@ public class Ordenamiento {
 
     // Bucket Sort (ordenamiento de tarros)
     public static void bucketSort(int[] nums) {
+        // Si el algoritmo tiene complejidad temporal en el peor caso de
+        // O(n^2), no rinde tener más tarros que la raiz cuadrada del tamanio.
+        // https://en.wikipedia.org/wiki/Bucket_sort
         int numTarros = (int) Math.sqrt(nums.length);
 
         // 1) Crear n tarros vacios (empty buckets)
