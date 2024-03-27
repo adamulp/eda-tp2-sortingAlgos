@@ -100,7 +100,7 @@ public class Ordenamiento {
 
     public void cargar() {
         int i = 0;
-        System.out.println("Size of unsortedNums=" + unsortedNums.length);
+//        System.out.println("Size of unsortedNums=" + unsortedNums.length);
         for (int num : unsortedNums) {
             unsortedNums[i] = (int) (Math.random() * 10001);
             i++;
