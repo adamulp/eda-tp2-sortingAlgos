@@ -303,7 +303,8 @@ public class SortingAlgos {
         Scanner leer = new Scanner(System.in);
         String input;
         Integer busqueda;
-        Integer index;
+        // Integer index;
+        Integer resultado[] = null;
         do {
             System.out.print("\n"
                     + "Que numero queres buscar? (quit para salir): ");
@@ -314,18 +315,24 @@ public class SortingAlgos {
             try {
                 busqueda = Integer.valueOf(input);
                 if(tipoBusqueda.equals("binaria")){
-                    index = ordenamiento.busquedaBinaria(busqueda);
+                    resultado = ordenamiento.busquedaBinaria(busqueda);
                 }else if(tipoBusqueda.equals("lineal")){
-                    index = ordenamiento.busquedaLineal(busqueda);
-                }else{
-                    index = null;
+                    resultado =  ordenamiento.busquedaLineal(busqueda);
                 }
-                if (index != null) {
-                    System.out.println("\t"
+                
+                if (resultado != null) {
+                    System.out.print("\t"
                             + "Se encontro " + busqueda + " en la "
-                            + "posicion " + index + " del arreglo."
-                            + "\n");
+                            + "posicion " + resultado[0] + " del arreglo.");
+                    if (resultado.length == 2){
+                        System.out.print(" Se extiende hasta la posicion "
+                                         + resultado[1]);
+                    }
+                }else{
+                    System.out.println("No se encontro el numero buscado");
                 }
+                
+                System.out.println("");
             } catch (NumberFormatException e) {
                 System.out.println("\n"
                         + "Solo se puede buscar numeros enteros."

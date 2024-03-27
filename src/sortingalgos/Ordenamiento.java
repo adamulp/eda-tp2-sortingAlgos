@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 /**
  * https://github.com/adamulp/sortingAlgos/
@@ -102,7 +103,7 @@ public class Ordenamiento {
         int i = 0;
         // System.out.println("Size of unsortedNums=" + unsortedNums.length);
         for (int num : unsortedNums) {
-            unsortedNums[i] = (int) (Math.random() * 10001);
+            unsortedNums[i] = (int) (Math.random() * 5);
             i++;
         }
     }
@@ -144,7 +145,7 @@ public class Ordenamiento {
 
     // Un paso negativo quiere decir buscar hacia la izquierda.
     public Integer buscarFrontera(int inicio, int paso) {
-        int fin = 0;
+        Integer fin = 0;
         Integer i = null;
         if (paso > 0) {
             fin = sortedNums.length - 1;
@@ -155,10 +156,14 @@ public class Ordenamiento {
                 return i - paso;
             }
         }
+        if(Objects.equals(i, fin)){
+            return fin;
+        }
         return inicio;
     }
 
-    public Integer busquedaBinaria(int num) {
+    public Integer[] busquedaBinaria(int num) {
+        Integer[] resultado;
         if (estaVacio(this.unsortedNums)) {
             System.out.println("No se cargo el arreglo");
             return null;
@@ -167,16 +172,22 @@ public class Ordenamiento {
             System.out.println("El arreglo no esta ordenado");
             return null;
         }
-        if (this.sortedNums.length == 1) {
-            return 0;
-        }
+
         int izq = 0;
         int der = sortedNums.length - 1;
         int cur;
         while (izq <= der) {
             cur = (izq + der) / 2;
             if (sortedNums[cur] == num) {
-                return buscarFrontera(cur, -1);
+                resultado = new Integer[]{
+                                        buscarFrontera(cur, -1), 
+                                        buscarFrontera(cur, 1)
+                                    };
+                if(Objects.equals(resultado[0], resultado[1])){
+                    return new Integer[]{cur};
+                }
+                return resultado;
+              
             }
             if (sortedNums[cur] < num) {
                 izq = cur + 1;
@@ -187,7 +198,9 @@ public class Ordenamiento {
         return null;
     }
 
-    public Integer busquedaLineal(int num) {
+    public Integer[] busquedaLineal(int num) {
+        Integer[] resultado;
+        int j;
         if (estaVacio(this.unsortedNums)) {
             System.out.println("No se cargo el arreglo");
             return null;
@@ -196,15 +209,17 @@ public class Ordenamiento {
             System.out.println("El arreglo no esta ordenado");
             return null;
         }
-        if (this.sortedNums.length == 1) {
-            return 0;
-        }
+
         for (int i = 0; i < sortedNums.length; i++) {
             if (num == sortedNums[i]) {
-                return i;
+                j = buscarFrontera(i, 1);
+                if(i == j){
+                    return new Integer[]{i};
+                }
+                return new Integer[]{i, j};
             }
         }
-        System.out.println("No se encontro " + num);
+//        System.out.println("No se encontro " + num);
         return null;
     }
 
