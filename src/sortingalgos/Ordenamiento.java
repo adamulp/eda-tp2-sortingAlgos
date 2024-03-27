@@ -52,17 +52,17 @@ public class Ordenamiento {
         return numString;
     }
 
-    public String getSortHash(){
-        if(this.sortHash == null){
+    public String getSortHash() {
+        if (this.sortHash == null) {
             setSortHash();
         }
         return sortHash;
     }
-    
+
     // Usar un SHA-256 para comparar entre resultados, como hacen con
     // las descargas de cosas.
     public void setSortHash() {
-        if(this.sortedNums == null){
+        if (this.sortedNums == null) {
             System.out.println("El arreglo no esta ordenado");
             return;
         }
@@ -72,14 +72,14 @@ public class Ordenamiento {
             MessageDigest digesto = MessageDigest.getInstance("SHA-256");
             digesto.update(sortedNumsStr.getBytes());
             byte[] hashBytes = digesto.digest();
-             for (byte hashByte : hashBytes) {
+            for (byte hashByte : hashBytes) {
                 String hex = Integer.toHexString(0xff & hashByte);
                 if (hex.length() == 1) {
                     hexString.append('0');
                 }
                 hexString.append(hex);
             }
-              
+
         } catch (NoSuchAlgorithmException e) {
             // Handle NoSuchAlgorithmException
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class Ordenamiento {
 
         this.sortHash = hexString.toString();
     }
- 
+
     public Ordenamiento(int[] unsortedNums) {
         this.unsortedNums = unsortedNums;
         this.sortedNums = null;
@@ -100,7 +100,7 @@ public class Ordenamiento {
 
     public void cargar() {
         int i = 0;
-//        System.out.println("Size of unsortedNums=" + unsortedNums.length);
+        // System.out.println("Size of unsortedNums=" + unsortedNums.length);
         for (int num : unsortedNums) {
             unsortedNums[i] = (int) (Math.random() * 10001);
             i++;
@@ -139,6 +139,25 @@ public class Ordenamiento {
         return this.sortedNums != null;
     }
 
+    // buscarFrontera devuelve el indice de la ultima coincidencia
+    // que se encuentra con el elemento ubicado en el indice del inicio.
+
+    // Un paso negativo quiere decir buscar hacia la izquierda.
+    public Integer buscarFrontera(int inicio, int paso) {
+        int fin = 0;
+        Integer i = null;
+        if (paso > 0) {
+            fin = sortedNums.length - 1;
+        }
+
+        for (i = inicio; i != fin; i += paso) {
+            if (sortedNums[inicio] != sortedNums[i]) {
+                return i - paso;
+            }
+        }
+        return inicio;
+    }
+
     public Integer busquedaBinaria(int num) {
         if (estaVacio(this.unsortedNums)) {
             System.out.println("No se cargo el arreglo");
@@ -157,7 +176,7 @@ public class Ordenamiento {
         while (izq <= der) {
             cur = (izq + der) / 2;
             if (sortedNums[cur] == num) {
-                return cur;
+                return buscarFrontera(cur, -1);
             }
             if (sortedNums[cur] < num) {
                 izq = cur + 1;

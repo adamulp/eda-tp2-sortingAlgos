@@ -277,6 +277,7 @@ public class SortingAlgos {
             System.out.println("\t[b]inaria");
             System.out.println("\t[l]ineal");
             System.out.println("\t[q]uit");
+            System.out.println("\t[m]ostrar arreglo ordenado");
             System.out.print("busqueda>> ");
             input = leer.nextLine();
             if(!input.equals("")){
@@ -288,6 +289,8 @@ public class SortingAlgos {
                     break;
                 case 'L':
                     buscar(ordenamiento, "lineal");
+                case 'M':
+                    ordenamiento.muestra(20);
                     break;
                 case 'Q':
                     input = "quit";
