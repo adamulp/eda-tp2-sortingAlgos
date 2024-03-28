@@ -35,11 +35,10 @@ public class Ordenamiento {
     private int numElementos;
     protected int unsortedNums[];
     protected int sortedNums[];
-    private String sortHash = null;
+    private String sortHash;
     private String sortAlgoUsed;
-    private int arraySize;
     private Long runTimeMs;
-    private Long horaComienzo = null;
+    private Long horaComienzo;
     private Long horaFinal;
 
     @Override
@@ -98,6 +97,12 @@ public class Ordenamiento {
         this.unsortedNums = unsortedNums;
         this.sortedNums = null;
         this.numElementos = unsortedNums.length;
+        
+        this.sortHash = null;
+        this.sortAlgoUsed = null;
+        this.runTimeMs = null;
+        this.horaComienzo = null;
+        this.horaFinal = null;
     }
 
     public Ordenamiento(int numElementos) {
