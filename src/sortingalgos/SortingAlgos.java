@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  * https://github.com/adamulp/sortingAlgos/
@@ -53,14 +54,8 @@ public class SortingAlgos {
         System.out.println(lineBreak);
         System.out.println("Insertion Sort:");
 
-        // mostrarHora();
-        insertionSort.empezarCronometro();
         insertionSort.insertionSort();
-        insertionSort.pararCronometro();
-        insertionSort.setSortHash();
-
         insertionSort.muestra(20);
-        // mostrarHora();
         mostrarTiempoEjecucion(insertionSort.getRunTimeMs());
         System.out.println("");
 
@@ -72,20 +67,13 @@ public class SortingAlgos {
         System.out.println(sectionBreak);
 
         Ordenamiento bubbleSort = new Ordenamiento(insertionSort.unsortedNums);
-        // Ordenamiento bubbleSort = new Ordenamiento(10);
-        // bubbleSort.cargar();
         System.out.println(lineBreak);
         System.out.println("Datos no ordenados:");
         bubbleSort.muestra(bubbleSort.unsortedNums, 20);
 
         System.out.println(lineBreak);
         System.out.println("Datos Ordenados (Bubble Sort):");
-
-        // mostrarHora();
-        bubbleSort.empezarCronometro();
         bubbleSort.bubbleSort();
-        bubbleSort.pararCronometro();
-        bubbleSort.setSortHash();
 
         System.out.println("bubbleSort hash:\t" + bubbleSort.getSortHash());
         System.out.println("insertionS hash:\t" + insertionSort.getSortHash());
@@ -96,129 +84,98 @@ public class SortingAlgos {
             System.out.println("Bubble sort e insertion sort están dando"
                     + " resultados distintos");
         }
+        compararOrdenamiento(bubbleSort, insertionSort);
 
-        // bubbleSort.muestra(20);
-        // mostrarHora();
         mostrarTiempoEjecucion(bubbleSort.getRunTimeMs());
         bubbleSort.muestra(20);
         System.out.println("");
-
-        // System.out.println("Prueba de numString: ");
-        // System.out.println(bubbleSort);
-        // System.out.println("Prueba de sortHash: ");
-        // System.out.println(bubbleSort.getSortHash());
-
-        // buscarBinariamente(bubbleSort);
-
+        
         // -----------------------------------------------------------------------
-        // Prueba de Shell Sort
+        // Shell Sort -- FIXME: Los datos no estan siempre ordenados por completo
         // -----------------------------------------------------------------------
         System.out.println(sectionBreak);
-        System.out.println("Bubble Sort");
+        System.out.println("Shell Sort");
         System.out.println(sectionBreak);
 
         Ordenamiento shellSort = new Ordenamiento(bubbleSort.unsortedNums);
         System.out.println(lineBreak);
         System.out.println("Datos no ordenados:");
-        shellSort.muestra(bubbleSort.unsortedNums, 20);
+        shellSort.muestra(shellSort.unsortedNums, 20);
 
         System.out.println(lineBreak);
+        shellSort.shellSort();
+        
         System.out.println("Datos Ordenados (Shell Sort):");
+        shellSort.muestra(20);
 
-        // mostrarHora();
-        shellSort.empezarCronometro();
-        shellSort.bubbleSort();
-        shellSort.pararCronometro();
-        shellSort.setSortHash();
+        compararOrdenamiento(shellSort, bubbleSort);
 
-        System.out.println("bubbleSort hash:\t" + bubbleSort.getSortHash());
-        System.out.println("shellSort  hash:\t" + shellSort.getSortHash());
-        if (bubbleSort.getSortHash().equals(shellSort.getSortHash())) {
-            System.out.println("Shell sort tiene el mismo resultado que"
-                    + " Bubble sort!");
-        } else {
-            System.out.println("Shell sort y Bubble sort están dando"
-                    + " resultados distintos");
-        }
 
-        // bubbleSort.muestra(20);
-        // mostrarHora();
         mostrarTiempoEjecucion(shellSort.getRunTimeMs());
         shellSort.muestra(20);
         System.out.println("");
 
         // -----------------------------------------------------------------------
-        // Prueba de Bucket Sort
+        // Bucket Sort: FIXME -- 1) Ordenar los tarros & 2) no cambiar los ints
         // -----------------------------------------------------------------------
         System.out.println(sectionBreak);
         System.out.println("Bucket Sort");
         System.out.println(sectionBreak);
 
-        Ordenamiento bucketSort = new Ordenamiento(shellSort.unsortedNums);
+        Ordenamiento bucketSort = new Ordenamiento(bubbleSort.unsortedNums);
         System.out.println(lineBreak);
         System.out.println("Datos no ordenados:");
-        shellSort.muestra(bucketSort.unsortedNums, 20);
+        bubbleSort.muestra(bucketSort.unsortedNums, 20);
 
         System.out.println(lineBreak);
-        System.out.println("Datos Ordenados (Bucket Sort):");
+        
 
-        // mostrarHora();
-        bucketSort.empezarCronometro();
-        bucketSort.bubbleSort();
-        bucketSort.pararCronometro();
-        bucketSort.setSortHash();
-
-        System.out.println("bucketSort hash:\t" + bucketSort.getSortHash());
-        System.out.println("shellSort  hash:\t" + shellSort.getSortHash());
-        if (bucketSort.getSortHash().equals(shellSort.getSortHash())) {
-            System.out.println("Bucket sort tiene el mismo resultado que"
-                    + " Shell sort!");
-        } else {
-            System.out.println("Bucket sort y Shell sort están dando"
-                    + " resultados distintos");
-        }
-
-        // bubbleSort.muestra(20);
-//        mostrarHora();
+        bucketSort.bucketSort();
+        System.out.println("\n"
+                + "Datos Ordenados (Bucket Sort):");
+        bubbleSort.muestra(20);
+        compararOrdenamiento(bucketSort, bubbleSort);
+        
+        System.out.println("");
         mostrarTiempoEjecucion(bucketSort.getRunTimeMs());
         bucketSort.muestra(20);
         System.out.println("");
+        
+        
+    
+
+        
 
         // -----------------------------------------------------------------------
-        // Prueba de Quick Sort
+        // Prueba de Quick Sort: FIXME - Bucle infinito
         // -----------------------------------------------------------------------
-        System.out.println(sectionBreak);
-        System.out.println("Quick Sort");
-        System.out.println(sectionBreak);
-
-        Ordenamiento quicksort = new Ordenamiento(bucketSort.unsortedNums);
-        System.out.println(lineBreak);
-        System.out.println("Datos no ordenados:");
-        shellSort.muestra(quicksort.unsortedNums, 20);
-
-        System.out.println(lineBreak);
-        System.out.println("Datos Ordenados (Quick Sort):");
-
-        // mostrarHora();
-        quicksort.empezarCronometro();
-        quicksort.bubbleSort();
-        quicksort.pararCronometro();
-        quicksort.setSortHash();
-
-        System.out.println("bucketSort hash:\t" + bucketSort.getSortHash());
-        System.out.println("quicksort  hash:\t" + quicksort.getSortHash());
-        if (bucketSort.getSortHash().equals(quicksort.getSortHash())) {
-            System.out.println("Quick sort tiene el mismo resultado que"
-                    + " bucket sort!");
-        } else {
-            System.out.println("Bucket sort y quick sort están dando"
-                    + " resultados distintos");
-        }
-
-        // bubbleSort.muestra(20);
-        // mostrarHora();
-        mostrarTiempoEjecucion(quicksort.getRunTimeMs());
-        quicksort.muestra(20);
+//        System.out.println(sectionBreak);
+//        System.out.println("Quick Sort");
+//        System.out.println(sectionBreak);
+//
+//        Ordenamiento quicksort = new Ordenamiento(bucketSort.unsortedNums);
+//        System.out.println(lineBreak);
+//        System.out.println("Datos no ordenados:");
+//        shellSort.muestra(quicksort.unsortedNums, 20);
+//
+//        System.out.println(lineBreak);
+//        System.out.println("Datos Ordenados (Quick Sort):");
+//
+//        quicksort.quickSort();
+//
+//
+//        System.out.println("bucketSort hash:\t" + bucketSort.getSortHash());
+//        System.out.println("quicksort  hash:\t" + quicksort.getSortHash());
+//        if (bucketSort.getSortHash().equals(quicksort.getSortHash())) {
+//            System.out.println("Quick sort tiene el mismo resultado que"
+//                    + " bucket sort!");
+//        } else {
+//            System.out.println("Bucket sort y quick sort están dando"
+//                    + " resultados distintos");
+//        }
+//
+//        mostrarTiempoEjecucion(quicksort.getRunTimeMs());
+//        quicksort.muestra(20);
         
         // -----------------------------------------------------------------------
         // Prueba de Busquedas
@@ -227,8 +184,41 @@ public class SortingAlgos {
         System.out.println("Prueba de Busquedas");
         System.out.println(sectionBreak);
         
-        probarBusquedas(quicksort);
+        probarBusquedas(insertionSort);
 
+    }
+    public static void compararOrdenamiento(Ordenamiento algo1, Ordenamiento algo2){
+        String algoHash1 = algo1.getSortHash();
+        String algoHash2 = algo2.getSortHash();
+        if(algoHash1 == null){
+            JOptionPane.showMessageDialog(null,
+                    "algo1 todavia no esta ordenado"
+                    );
+            return;
+        }
+        if(algoHash2 == null){
+            JOptionPane.showMessageDialog(null,
+                    "algo2 todavia no esta ordenado"
+                    );
+            return;
+        }
+        if(algoHash1.equals(algoHash2)){
+            JOptionPane.showMessageDialog(null,
+                    "El arreglo ordenado usando "
+                + algo1.getSortAlgoUsed() + ""
+                + "  es igual al arreglo ordenado por "
+                + algo2.getSortAlgoUsed()
+                    );
+            return;
+        }
+
+        JOptionPane.showMessageDialog(null,
+                "El arreglo ordenado despues de aplicar "
+                + algo1.getSortAlgoUsed() + ""
+                + " no es igual a el del algoritmo "
+                + algo2.getSortAlgoUsed()
+                );
+       
     }
 
     public static void mostrarHora() {

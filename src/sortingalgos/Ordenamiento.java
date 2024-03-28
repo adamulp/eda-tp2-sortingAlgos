@@ -35,7 +35,8 @@ public class Ordenamiento {
     private int numElementos;
     protected int unsortedNums[];
     protected int sortedNums[];
-    protected String sortHash = null;
+    private String sortHash = null;
+    private String sortAlgoUsed;
     private int arraySize;
     private Long runTimeMs;
     private Long horaComienzo = null;
@@ -60,6 +61,10 @@ public class Ordenamiento {
         return sortHash;
     }
 
+    public String getSortAlgoUsed() {
+        return sortAlgoUsed;
+    }
+ 
     // Usar un SHA-256 para comparar entre resultados, como hacen con
     // las descargas de cosas.
     public void setSortHash() {
@@ -261,10 +266,6 @@ public class Ordenamiento {
     }
 
     public static void insertionSort(int nums[]) {
-        // if (estaVacio(nums)) {
-        // return null;
-        // }
-
         int aux;
         int j;
         for (int i = 1; i <= (nums.length - 1); i++) {
@@ -286,7 +287,13 @@ public class Ordenamiento {
     public void insertionSort() {
         this.sortedNums = new int[this.unsortedNums.length];
         System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
+        
+        empezarCronometro();
         insertionSort(sortedNums);
+        pararCronometro();
+        
+        setSortHash();
+        this.sortAlgoUsed = "Insertion Sort";
     }
 
     public void bubbleSort(int[] nums) {
@@ -311,7 +318,13 @@ public class Ordenamiento {
     public void bubbleSort() {
         this.sortedNums = new int[this.unsortedNums.length];
         System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
+        
+        empezarCronometro();
         bubbleSort(sortedNums);
+        pararCronometro();
+        
+        setSortHash();
+        this.sortAlgoUsed = "Bubble Sort";
     }
 
     private static int particion(int[] nums, int primerElemento, int ultimoElemento) {
@@ -369,7 +382,13 @@ public class Ordenamiento {
     public void quickSort() {
         this.sortedNums = new int[this.unsortedNums.length];
         System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
+        
+        empezarCronometro();
         quickSort(sortedNums);
+        pararCronometro();
+        
+        setSortHash();
+        this.sortAlgoUsed = "Quick Sort";
     }
 
     /*
@@ -419,6 +438,18 @@ public class Ordenamiento {
             }
 
         }
+    }
+    
+    public void shellSort() {
+        this.sortedNums = new int[this.unsortedNums.length];
+        System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
+        
+        empezarCronometro();
+        shellSort(sortedNums);
+        pararCronometro();
+        
+        setSortHash();
+        this.sortAlgoUsed = "Shell Sort";
     }
 
     private static int generarBucketIndex(int num, int maxValor, int numDeTarros) {
@@ -482,4 +513,16 @@ public class Ordenamiento {
     // https://www.baeldung.com/java-bucket-sort
     // https://introcs.cs.princeton.edu/java/11precedence/
 
+     public void bucketSort() {
+        this.sortedNums = new int[this.unsortedNums.length];
+        System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
+        
+        empezarCronometro();
+        bucketSort(sortedNums);
+        pararCronometro();
+        
+        setSortHash();
+        this.sortAlgoUsed = "Bucket Sort";
+    }
+    
 }
