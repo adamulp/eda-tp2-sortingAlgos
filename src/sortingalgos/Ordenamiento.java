@@ -498,7 +498,7 @@ public class Ordenamiento {
         // Colocar los elementos del arreglo en tarros distintos
         int maxValor = findMax(nums);
         for (int num : nums) {
-            buckets[generarBucketIndex(num, maxValor, numTarros)].add(nums[num]);
+            buckets[generarBucketIndex(num, maxValor, numTarros)].add(num);
         }
 
         // 3) Ordenar tarros individuales utilizando insertion sort
