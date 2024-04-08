@@ -91,7 +91,7 @@ public class SortingAlgos {
         System.out.println("");
         
         // -----------------------------------------------------------------------
-        // Shell Sort -- FIXME: Los datos no estan siempre ordenados por completo
+        // Shell Sort
         // -----------------------------------------------------------------------
         System.out.println(sectionBreak);
         System.out.println("Shell Sort");
