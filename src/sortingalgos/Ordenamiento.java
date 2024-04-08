@@ -427,7 +427,7 @@ public class Ordenamiento {
         int aux;
         List<Integer> saltos = new ArrayList<>();
         int saltoBinario = nums.length / 2;
-        while (saltoBinario > 1) {
+        while (saltoBinario > 0) {
             saltos.add(saltoBinario);
             saltoBinario = saltoBinario / 2;
         }
