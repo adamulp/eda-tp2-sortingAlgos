@@ -116,7 +116,7 @@ public class SortingAlgos {
         System.out.println("");
 
         // -----------------------------------------------------------------------
-        // Bucket Sort: FIXME -- 1) Ordenar los tarros & 2) no cambiar los ints
+        // Bucket Sort
         // -----------------------------------------------------------------------
         System.out.println(sectionBreak);
         System.out.println("Bucket Sort");
@@ -147,35 +147,27 @@ public class SortingAlgos {
         
 
         // -----------------------------------------------------------------------
-        // Prueba de Quick Sort: FIXME - Bucle infinito
+        // Prueba de Quick Sort
         // -----------------------------------------------------------------------
-//        System.out.println(sectionBreak);
-//        System.out.println("Quick Sort");
-//        System.out.println(sectionBreak);
-//
-//        Ordenamiento quicksort = new Ordenamiento(bucketSort.unsortedNums);
-//        System.out.println(lineBreak);
-//        System.out.println("Datos no ordenados:");
-//        shellSort.muestra(quicksort.unsortedNums, 20);
-//
-//        System.out.println(lineBreak);
-//        System.out.println("Datos Ordenados (Quick Sort):");
-//
-//        quicksort.quickSort();
-//
-//
-//        System.out.println("bucketSort hash:\t" + bucketSort.getSortHash());
-//        System.out.println("quicksort  hash:\t" + quicksort.getSortHash());
-//        if (bucketSort.getSortHash().equals(quicksort.getSortHash())) {
-//            System.out.println("Quick sort tiene el mismo resultado que"
-//                    + " bucket sort!");
-//        } else {
-//            System.out.println("Bucket sort y quick sort están dando"
-//                    + " resultados distintos");
-//        }
-//
-//        mostrarTiempoEjecucion(quicksort.getRunTimeMs());
-//        quicksort.muestra(20);
+        System.out.println(sectionBreak);
+        System.out.println("Quick Sort");
+        System.out.println(sectionBreak);
+
+        Ordenamiento quicksort = new Ordenamiento(bucketSort.unsortedNums);
+        System.out.println(lineBreak);
+        System.out.println("Datos no ordenados:");
+        shellSort.muestra(quicksort.unsortedNums, 20);
+
+        System.out.println(lineBreak);
+        System.out.println("Datos Ordenados (Quick Sort):");
+
+        quicksort.quickSort();
+
+
+        compararOrdenamiento(quicksort, bucketSort);
+
+        mostrarTiempoEjecucion(quicksort.getRunTimeMs());
+        quicksort.muestra(20);
         
         // -----------------------------------------------------------------------
         // Prueba de Busquedas

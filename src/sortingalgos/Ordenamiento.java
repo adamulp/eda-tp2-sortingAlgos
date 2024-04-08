@@ -349,7 +349,7 @@ public class Ordenamiento {
                 cotaSuperior--;
             }
             if (cotaSuperior > cotaInferior) {
-                intercambiar(nums, nums[cotaSuperior], nums[cotaInferior]);
+                intercambiar(nums, cotaSuperior, cotaInferior);
             }
         }
 
