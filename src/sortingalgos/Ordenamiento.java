@@ -86,7 +86,6 @@ public class Ordenamiento {
             }
 
         } catch (NoSuchAlgorithmException e) {
-            // Handle NoSuchAlgorithmException
             e.printStackTrace();
         }
 
@@ -111,7 +110,6 @@ public class Ordenamiento {
 
     public void cargar() {
         int i = 0;
-        // System.out.println("Size of unsortedNums=" + unsortedNums.length);
         for (int num : unsortedNums) {
             unsortedNums[i] = (int) (Math.random() * 5);
             i++;
@@ -149,6 +147,32 @@ public class Ordenamiento {
     public boolean estaOrdenado() {
         return this.sortedNums != null;
     }
+    
+    public static boolean estaVacio(int nums[]) {
+        if (nums == null) {
+            System.out.println("El arreglo está vacío.");
+            return true;
+        }
+        return false;
+    }
+
+    public static void muestra(int nums[], int anchoPantalla) {
+        if (estaVacio(nums)) {
+            return;
+        }
+        int i;
+        for (i = 0; i < nums.length; i++) {
+            while (i <= anchoPantalla && i < nums.length) {
+                System.out.print(nums[i] + ",\t");
+                i++;
+            }
+            System.out.print("\n");
+        }
+    }
+    
+    /*************************************************************************
+     * Search
+     *************************************************************************/
 
     // buscarFrontera devuelve el indice de la ultima coincidencia
     // que se encuentra con el elemento ubicado en el indice del inicio.
@@ -162,6 +186,7 @@ public class Ordenamiento {
         }
 
         for (i = inicio; i != fin; i += paso) {
+            System.out.println("i=" + i);
             if (sortedNums[inicio] != sortedNums[i]) {
                 return i - paso;
             }
@@ -229,66 +254,37 @@ public class Ordenamiento {
                 return new Integer[]{i, j};
             }
         }
-//        System.out.println("No se encontro " + num);
         return null;
     }
 
-    public static boolean estaVacio(int nums[]) {
-        if (nums == null) {
-            System.out.println("El arreglo está vacío.");
-            return true;
-        }
-        return false;
-    }
-
-    public static void muestra(int nums[], int anchoPantalla) {
-        if (estaVacio(nums)) {
-            return;
-        }
-        int i;
-        for (i = 0; i < nums.length; i++) {
-            while (i <= anchoPantalla && i < nums.length) {
-                System.out.print(nums[i] + ",\t");
-                i++;
-            }
-            System.out.print("\n");
-        }
-    }
+    
 
     public void muestra(int anchoPantalla) {
         muestra(this.sortedNums, anchoPantalla);
     }
+    
+    /*************************************************************************
+      Sorting
+     *************************************************************************/
 
-    private static void intercambiar(int[] nums, int i, int j) {
-        try {
-            int temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;
-        } catch (ArrayIndexOutOfBoundsException obe) {
-            System.out.println("No se puede cambiar el elemento "
-                    + i + " con el elemento " + j);
-        }
+    public static void insertionSort(int[] nums) {
+    if (estaVacio(nums)) {
+        System.out.println("El arreglo esta vacio");
+        return;
     }
-
-    public static void insertionSort(int nums[]) {
-        int aux;
-        int j;
-        for (int i = 1; i <= (nums.length - 1); i++) {
-            aux = nums[i];
-            j = i;
-            while (j > 0 && nums[j - 1] > aux) {
-                intercambiar(nums, j, (j - 1));
-                j--;
-            }
+    int aux;
+    int j;
+    for (int i = 1; i < nums.length; i++) {
+        aux = nums[i];
+        j = i;
+        while (j > 0 && nums[j - 1] > aux) {
+            nums[j] = nums[j - 1]; // Correr los elementos hacia la derecha
+            j--;
         }
-        // return nums;
+        nums[j] = aux; // nums[j] <-- aux cuando todo anterior es <= aux
     }
+}
 
-    /*
-     * public static native void arraycopy(Object src, int srcPos,
-     * Object dest, int destPos,
-     * int length);
-     */
     public void insertionSort() {
         this.sortedNums = new int[this.unsortedNums.length];
         System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
@@ -299,6 +295,19 @@ public class Ordenamiento {
         
         setSortHash();
         this.sortAlgoUsed = "Insertion Sort";
+    }
+    
+    // Bubble Sort
+    
+    private static void intercambiar(int[] nums, int i, int j) {
+        try {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        } catch (ArrayIndexOutOfBoundsException obe) {
+            System.out.println("No se puede cambiar el elemento "
+                    + i + " con el elemento " + j);
+        }
     }
 
     public void bubbleSort(int[] nums) {
@@ -379,11 +388,6 @@ public class Ordenamiento {
     }
     // https://github.com/apinkney97/Sorts/tree/master
 
-    /*
-     * public static native void arraycopy(Object src, int srcPos,
-     * Object dest, int destPos,
-     * int length);
-     */
     public void quickSort() {
         this.sortedNums = new int[this.unsortedNums.length];
         System.arraycopy(unsortedNums, 0, sortedNums, 0, unsortedNums.length);
@@ -396,32 +400,6 @@ public class Ordenamiento {
         this.sortAlgoUsed = "Quick Sort";
     }
 
-    /*
-     * # Sort an array a[0...n-1].
-     * gaps = [701, 301, 132, 57, 23, 10, 4, 1] # Ciura gap sequence
-     * 
-     * # Start with the largest gap and work down to a gap of 1
-     * # similar to insertion sort but instead of 1, gap is being used in each step
-     * foreach (gap in gaps)
-     * {
-     * # Do a gapped insertion sort for every elements in gaps
-     * # Each loop leaves a[0..gap-1] in gapped order
-     * for (i = gap; i < n; i += 1)
-     * {
-     * # save a[i] in temp and make a hole at position i
-     * temp = a[i]
-     * # shift earlier gap-sorted elements up until the correct location for a[i] is
-     * found
-     * for (j = i; (j >= gap) && (a[j - gap] > temp); j -= gap)
-     * {
-     * a[j] = a[j - gap]
-     * }
-     * # put temp (the original a[i]) in its correct location
-     * a[j] = temp
-     * }
-     * }
-     * # https://en.wikipedia.org/wiki/Shellsort
-     */
 
     public void shellSort(int nums[]) {
         int aux;
@@ -470,19 +448,20 @@ public class Ordenamiento {
         return max;
     }
 
-    public static void insertionSort(List<Integer> buckets) {
-        for (int i = 1; i < buckets.size(); ++i) {
-            int llave = buckets.get(i);
-            int j = i - 1;
-            while (j >= 0 && buckets.get(j) > llave) {
-                buckets.set(j + 1, buckets.get(j));
+    // Bucket Sort (ordenamiento de tarros)
+    
+    private static void insertionSort(List<Integer> buckets) {
+        for (int i = 1; i < buckets.size(); i++) {
+            int aux = buckets.get(i);
+            int j = i;
+            while (j > 0 && buckets.get(j-1) > aux) {
+                buckets.set(j, buckets.get(j-1));
                 j--;
             }
-            buckets.set(j + 1, llave);
+            buckets.set(j, aux);
         }
     }
-
-    // Bucket Sort (ordenamiento de tarros)
+    
     public static void bucketSort(int[] nums) {
         // Si el algoritmo tiene complejidad temporal en el peor caso de
         // O(n^2), no rinde tener más tarros que la raiz cuadrada del tamanio.
